@@ -1,6 +1,7 @@
-# rest-api
+# Patients
 
-FIXME
+Тестовое задание по созданию web-приложения 
+реализующего CRUD-функционал для модели пациента
 
 ## Prerequisites
 
@@ -16,4 +17,4 @@ To start a web server for the application, run:
 
 ## License
 
-Copyright © 2022 FIXME
+Copyright © 2022 SergePauli
