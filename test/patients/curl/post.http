@@ -1,0 +1,1 @@
+curl -X POST -d '{"fio":"Попков Василий Федорович", "gender":"1", "birth_date":"1972-02-02","address":"Запупыщенский 3", "polis_oms":"3235b43645435"}' -H "Content-Type: application/json" http://localhost:3000/api/patients

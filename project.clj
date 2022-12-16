@@ -6,8 +6,9 @@
                  [compojure "1.6.1"]
                  [ring/ring-json "0.5.1"]
                  [korma "0.3.0-RC5"]
-                 [lobos "1.0.0-beta1"]                 
-                 [org.postgresql/postgresql "9.2-1002-jdbc4"]]
+                 [lobos "1.0.0-beta1"] 
+                 [clj-time "0.15.2"]
+                 [org.postgresql/postgresql "LATEST"]]
   :plugins [[lein-ring "0.12.5"]]
   :ring {:handler patients.handler/app}
   :profiles

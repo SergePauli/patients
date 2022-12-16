@@ -1,21 +1,32 @@
 (ns patients.handler
-  (:use compojure.core)
+  (:use [compojure.core]        
+        [patients.query]
+        [ring.util.response :only [response]])
   (:require [compojure.handler :as handler]
-            [compojure.route :as route]            
-            [ring.middleware.json :as json]))
+            [compojure.route :as route]
+            [ring.middleware.json :as json]
+            
+            [clj-time.format :as f]))
+(defroutes default-routes     
+  (route/not-found "Not found")
+  )
+(defn welcome  
+  [request]
+  {:status 200
+     :body "<h1>API Patients started!</h1>
+     <p>Welcome to my first Clojure app, I now update automatically</p>"
+     
+   :headers {}})
 
 (defroutes app-routes   
-  (GET "/api/patients" [] "TODO:  return all list items")
-  (GET "/api/patients/:id" [id] "TODO:  return a single list item")
-  (POST "/api/patients" [] "TODO:  create a list item")
-  (PUT "/api/patients/:id" [id] "TODO:  update a list item")
-  (DELETE "/api/patients/:id" [id] "TODO:  delete a list item") 
-  (route/resources "/index")
-  (route/not-found "Not found"))
+  (GET "/" [] welcome)
+  (GET "/api/patients" [] (response (get-patients)))
+  (GET "/api/patients/:id" [id] (response (get-patient (Integer/parseInt id))))
+  (POST "/api/patients" [fio gender birth_date address polis_oms] (response (add-patient fio (Integer/parseInt gender)  birth_date address polis_oms)))
+  (PUT "/api/patients/:id" [id fio gender birth_date address polis_oms] (response (update-patient (Integer/parseInt id) fio (Integer/parseInt gender) birth_date address polis_oms)))
+  (DELETE "/api/patients/:id" [id] (response (delete-patient (Integer/parseInt id)))))
 
 (def app
   (-> (handler/api app-routes)
       (json/wrap-json-params)
       (json/wrap-json-response)))
-
-
