@@ -8,6 +8,8 @@
                  [korma "0.3.0-RC5"]
                  [lobos "1.0.0-beta1"] 
                  [clj-time "0.15.2"]
+                 [clojure.java-time "1.1.0"]
+                 [metis "0.3.3"]
                  [org.postgresql/postgresql "LATEST"]]
   :plugins [[lein-ring "0.12.5"]]
   :ring {:handler patients.handler/app}

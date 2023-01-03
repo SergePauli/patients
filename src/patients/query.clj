@@ -1,24 +1,27 @@
 (ns patients.query
-  (:require [patients.database]
-            [clj-time.coerce :as t]
-            [korma.core :refer :all]))
+  (:require [patients.database]            
+            [korma.core :refer :all]
+            [java-time.api :as jt]))
+
+; Определяем структуру записи пациента
+(defrecord Patient [fio gender birth_date address polis_oms])
 
 (defentity patients)
 
 (defn get-patients []
   (select patients))
 
-(defn add-patient [fio gender birth_date address polis_oms]
+(defn add-patient [patient]
   (insert patients
-          (values {:fio fio :gender gender :birth_date (t/to-sql-date birth_date) :address address :polis_oms polis_oms})))
+          (values patient)))
 
 (defn delete-patient [id]
   (delete patients
           (where {:id [= id]})))
 
-(defn update-patient [id fio gender birth_date address polis_oms]
+(defn update-patient [id patient]
   (update patients
-          (set-fields {:fio fio :gender gender :birth_date (t/to-sql-date birth_date) :address address :polis_OMS polis_oms})
+          (set-fields (assoc patient :updated_on (jt/local-date-time)))
           (where {:id [= id]})))
 
 (defn get-patient [id]
